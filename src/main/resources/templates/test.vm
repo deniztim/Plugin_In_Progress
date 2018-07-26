@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>My Title</title>
+    <meta name="decorator" content="atl.admin">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	jQuery(document).ready(function(){
+	  $("form").submit(function(e){
+                alert('submit intercepted');
+                e.preventDefault(e);
+            });
+            
+	    jQuery("#btnEdit").click(function(){
+	        jQuery.ajax(
+	        	{
+	        		url: "http://localhost:8080/plugins/servlet/userservlet",
+	        		success: function(text) {
+	        			console.log(text);
+	        			$("#editdiv").html(text);
+	        		}
+	        	});
+	    });
+	});
+	</script>
+  </head>
+  <body>
+    <form method="post" id="admin" class="aui" >
+        <div class="field-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" class="text">
+        </div>
+        
+        <div class="field-group">
+        <input type="submit" name="add" value="Add"  class="button">
+        </div>
+    </form>   
+     <form method="post" id="admin" class="aui">
+        <div>
+        <table>
+			#foreach( $ent in $lists )
+    		<tr><td><input id="btnEdit" name ="edit" type="submit" value="$ent.Name">
+    		<button type="submit" name="delete" value="$ent.Name">X</button>
+    		</td></tr>
+			#end
+		</table>
+        </div>
+       
+    </form> 
+    <div id="editdiv"></div>
+  </body>
+</html>
