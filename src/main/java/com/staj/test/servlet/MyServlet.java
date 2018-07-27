@@ -21,6 +21,7 @@ import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.templaterenderer.TemplateRenderer;
 
 import net.java.ao.EntityManager;
+import net.java.ao.Query;
 
 @Scanned
 public class MyServlet extends HttpServlet{
@@ -75,35 +76,56 @@ public class MyServlet extends HttpServlet{
     		 final String name= req.getParameter("name");
     		 ao.executeInTransaction(new TransactionCallback<entity>() 
          {
-             @Override
-             public entity doInTransaction()
-             {
-                 final entity ent = ao.create(entity.class); 
-                 ent.setName(name);
-                 ent.save(); 
-                 return ent;
-             }
+    			 @Override
+                 public entity doInTransaction()
+                 {
+//                     entity[] entities = ao.find(entity.class, Query.select().where("NAME = ?", name));
+//                     if(entities[0].equals(null)) {
+                    	 final entity ent = ao.create(entity.class); 
+                    	 ent.setName(name);
+                    	 ent.save(); 
+                    	 return ent;
+//                     }
+//                     else {
+//                    	 return null;
+//                     }
+//                     
+//                     return null;
+                 }
          });
     	}
     	else if(req.getParameter("delete")!=null) {
     		 final String name= req.getParameter("delete");
     		 ao.executeInTransaction(new TransactionCallback<entity>() 
     	        {
-    	            @Override
-    	            public entity doInTransaction()
-    	            {
-    	                for(entity ent:ao.find(entity.class)) {
-    	               	 if(ent.getName().equalsIgnoreCase(name)) {
-    	               		 ao.delete(ent);
-    	               		return null;
-    	               	 }
-    	               }
-    	                return null;
-    	            }
+    			 @Override
+                 public entity doInTransaction()
+                 {
+                     entity[] entities = ao.find(entity.class, Query.select().where("NAME = ?", name));
+                     if(entities[0].equals(null)) {
+                    	 final entity ent = ao.create(entity.class); 
+                    	 ent.setName(name);
+                    	 ent.save(); 
+                    	 return ent;
+                     }
+                     
+                     return null;
+                 }
     	        });
-    	 }
-         
-
+    	}
+    	else if(req.getParameter("save")!=null) {
+    		
+	   		 final String name=req.getParameter("save");
+	   		  String user1= req.getParameter("first");
+	   		 final String user2=req.getParameter("second");
+	   		 
+	   		 entity[] entities = ao.find(entity.class, Query.select().where("NAME = ?", name));
+	   		 entities[0].setUser1(user1);
+	       	 entities[0].setUser2(user2);
+   	         entities[0].save();
+            
+   	 
+   }
          resp.sendRedirect(req.getContextPath() + "/plugins/servlet/myservlet");
         
     }

@@ -1,22 +1,44 @@
 <html>
   <head>
-    <title>My Title</title>
+    <title>Mah Heart Mah Soul</title>
     <meta name="decorator" content="atl.admin">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 	jQuery(document).ready(function(){
-	  $("form").submit(function(e){
-                alert('submit intercepted');
-                e.preventDefault(e);
-            });
-            
-	    jQuery("#btnEdit").click(function(){
+	    jQuery("input[name='edit']").click(function(){
+	    	var val=$(this).val();
 	        jQuery.ajax(
 	        	{
 	        		url: "http://localhost:8080/plugins/servlet/userservlet",
+	        		data:{
+	        			save: val
+	        		},
 	        		success: function(text) {
 	        			console.log(text);
 	        			$("#editdiv").html(text);
+	        		}
+	        	});
+	    });
+	    jQuery("button[name='delete']").click(function(){
+	    	var value = $(this).val();
+	        jQuery.ajax(
+	        	{
+	        		type: "POST",
+	        		url: "http://localhost:8080/plugins/servlet/myservlet",
+	        		data: {
+	        			delete:value
+	        		}
+	        	
+	        	});
+	        location.href = location.href;
+	    });
+	    jQuery("#btnAdd").click(function(){
+			var listName = $("#name").val();
+	        jQuery.ajax(
+	        	{	
+	        		type:"POST",
+	        		data: {
+	        			name:listName
 	        		}
 	        	});
 	    });
@@ -24,28 +46,36 @@
 	</script>
   </head>
   <body>
+  <table>
+  <tr><td>
+  <div style="float:left;width:40%;padding:20px">
     <form method="post" id="admin" class="aui" >
-        <div class="field-group">
+        <div>
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" class="text">
+        <input type="text" id="name" name="name" class="text" style="width:%50">
         </div>
-        
-        <div class="field-group">
-        <input type="submit" name="add" value="Add"  class="button">
+        <span style="display:block; height: 10px;"></span>
+        <div>
+        <input type="submit" name="add" value="Add"  class="button" style="width:%20">
         </div>
-    </form>   
-     <form method="post" id="admin" class="aui">
+        <div>$warning</div>
+     </form>
+     <span style="display:block; height: 5px;"></span>
         <div>
         <table>
 			#foreach( $ent in $lists )
     		<tr><td><input id="btnEdit" name ="edit" type="submit" value="$ent.Name">
-    		<button type="submit" name="delete" value="$ent.Name">X</button>
+    		<button id="btnDelete" "type="submit" name="delete" value="$ent.Name">X</button>
     		</td></tr>
 			#end
 		</table>
         </div>
-       
-    </form> 
+
+    </td><td>
+    <article style="float:left;width:45%;padding:20px">
     <div id="editdiv"></div>
+    <article>
+    </td></tr>
+    </table>
   </body>
 </html>

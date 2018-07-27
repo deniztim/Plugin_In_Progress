@@ -1,0 +1,39 @@
+Manifest-Version: 1.0
+Atlassian-Build-Date: 2018-07-27T15:17:34+0300
+Atlassian-Plugin-Key: com.staj.test
+Bnd-LastModified: 1532693855356
+Build-Jdk: 1.8.0_171
+Built-By: Deniz Timartas
+Bundle-Description: This is the com.staj:test plugin for Atlassian JIRA.
+Bundle-DocURL: http://www.example.com/
+Bundle-ManifestVersion: 2
+Bundle-Name: test
+Bundle-SymbolicName: com.staj.test
+Bundle-Vendor: Example Company
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.staj.api;version="1.0.0"
+Import-Package: org.springframework.osgi.context;resolution:=optional,or
+ g.springframework.osgi.service.exporter.support;resolution:=optional,or
+ g.springframework.osgi.service.importer.support;resolution:=optional,or
+ g.eclipse.gemini.blueprint.context;resolution:=optional,org.eclipse.gem
+ ini.blueprint.service.exporter;resolution:=optional,org.eclipse.gemini.
+ blueprint.service.exporter.support;resolution:=optional,org.eclipse.gem
+ ini.blueprint.service.importer.support;resolution:=optional,com.atlassi
+ an.activeobjects.external,com.atlassian.jira.component,com.atlassian.ji
+ ra.user,com.atlassian.jira.user.util,com.atlassian.plugin.osgi.factory,
+ com.atlassian.sal.api,com.atlassian.sal.api.transaction,com.atlassian.t
+ emplaterenderer,com.google.common.base,com.google.common.collect,com.st
+ aj.api;version="[1.0,2)",javax.annotation,javax.inject,javax.servlet,ja
+ vax.servlet.http,net.java.ao,org.apache.commons.lang,org.apache.commons
+ .logging,org.osgi.framework,org.slf4j,org.springframework.aop.support,o
+ rg.springframework.beans,org.springframework.beans.factory,org.springfr
+ amework.beans.factory.annotation,org.springframework.beans.factory.conf
+ ig,org.springframework.beans.factory.parsing,org.springframework.beans.
+ factory.support,org.springframework.beans.factory.xml,org.springframewo
+ rk.context.annotation,org.springframework.core.io,org.springframework.s
+ tereotype,org.springframework.util,org.w3c.dom
+Originally-Created-By: Apache Maven Bundle Plugin
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Spring-Context: *
+Tool: Bnd-2.4.1.201501161923

@@ -1,15 +1,9 @@
 package com.staj.test.servlet;
 
-import java.util.Collection;
-import java.util.Set;
-
-import com.atlassian.jira.user.ApplicationUser;
-import com.atlassian.jira.user.util.UserManager;
-
 import net.java.ao.Entity;
 
 public interface entity extends Entity{
-	
+
 	String getName();
 	void setName(String name);
 	String getUser1();

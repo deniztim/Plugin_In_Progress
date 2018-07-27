@@ -12,6 +12,8 @@ import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.staj.test.servlet.entity;
 
+import net.java.ao.Query;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,9 +45,8 @@ public class UserServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-    	ArrayList<Object> firstuser = new ArrayList<>();
-    	ArrayList<Object> seconduser = new ArrayList<>();
     	
+    	String val=req.getParameter("save");
         Map<String, Object> context = new HashMap<>();
         
         ao.executeInTransaction(new TransactionCallback<Void>() // (1)
@@ -53,22 +54,15 @@ public class UserServlet extends HttpServlet{
               @Override
               public Void doInTransaction()
               {
-                  for (entity ent : ao.find(entity.class)) // (2)
-                  {
-                 	 firstuser.add(ent.getUser1());
-                 	 seconduser.add(ent.getUser2());
-                      
-                  }
-
-             	 users =userMan.getAllUsers();
+                  users =userMan.getAllUsers();
                   return null;
               }
           });
-
-        context.put("user1",firstuser); 
-        context.put("user2",seconduser); 
-          context.put("users",users); 
-          templateRenderer.render("/templates/test2.vm", context,resp.getWriter());
+        entity[] ent= ao.find(entity.class,Query.select().where("NAME= ?",val));
+        context.put("save", val);
+        context.put("ent",ent[0]);
+        context.put("val", val);
+        context.put("users",users); 
+        templateRenderer.render("/templates/test2.vm", context,resp.getWriter());
     }
-
 }
