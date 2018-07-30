@@ -95,24 +95,12 @@ public class MyServlet extends HttpServlet{
          });
     	}
     	else if(req.getParameter("delete")!=null) {
-    		 final String name= req.getParameter("delete");
-    		 ao.executeInTransaction(new TransactionCallback<entity>() 
-    	        {
-    			 @Override
-                 public entity doInTransaction()
-                 {
-                     entity[] entities = ao.find(entity.class, Query.select().where("NAME = ?", name));
-                     if(entities[0].equals(null)) {
-                    	 final entity ent = ao.create(entity.class); 
-                    	 ent.setName(name);
-                    	 ent.save(); 
-                    	 return ent;
-                     }
-                     
-                     return null;
-                 }
-    	        });
-    	}
+   		 final String name= req.getParameter("delete");
+
+	   		 entity[] entities = ao.find(entity.class, Query.select().where("NAME = ?", name));
+	   		 ao.delete(entities[0]);
+   	         
+   	}
     	else if(req.getParameter("save")!=null) {
     		
 	   		 final String name=req.getParameter("save");
