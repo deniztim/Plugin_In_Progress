@@ -13,4 +13,6 @@ Full documentation is always available at:
 https://developer.atlassian.com/display/DOCS/Introduction+to+the+Atlassian+Plugin+SDK
 
 
-This is a plugin that adds an item on Jira Add-ons list and lets you add or remove configurations from it, which has two user picker fields that interacts with the database and saves the value inside them after a button click.
+This is a plugin that adds an item on Jira Add-ons list and lets you add or remove 
+configurations from it, which has two user picker fields that interacts with the 
+database and saves the value inside them after a button click.
